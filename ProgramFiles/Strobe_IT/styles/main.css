@@ -1,18 +1,31 @@
+/********************************************
+   Support HTA CSS
+********************************************/
+
+/* Classes */
+/* ======================================= */
+.clearing-only { clear: both; } /* DIV class for clearing left an right */
+.clearing { clear: both; height: 1px; } /* DIV class for clearing left an right */
+.clearing-big { clear: both; height: 5px; } /* DIV class for clearing left an right */
+
+/* Structure */
+/* ======================================= */
+
 #container {
 	height: 100%;
 	width: 100%;
 }
 
 #header {
+	height: 115px;
+	width: 100%;
 }
 
-#content {
-}
+/*#content {
+} */
 
-#footer {
-}
-
-
+/* #footer {
+} */
 
 #banner-left-image {
 	height: 115px;
