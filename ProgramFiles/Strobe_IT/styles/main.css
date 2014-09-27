@@ -1,0 +1,32 @@
+#container {
+	height: 100%;
+	width: 100%;
+}
+
+#header {
+}
+
+#content {
+}
+
+#footer {
+}
+
+
+
+#banner-left-image {
+	height: 115px;
+	margin: 0px;
+	padding: 0px;
+	position: absolute;
+}
+
+#banner-right-image {
+	height: 115px;
+	padding: 0px;
+	position: absolute;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 225px;
+}
