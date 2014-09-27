@@ -28,8 +28,54 @@
 	>
 </head>
 
+<script language="VBScript">
+	Dim OSVER
+	
+	Sub Window_Onload
+		window.document.title = MyApp.applicationname & " " & MyApp.version
+
+		window.resizeTo 800,550	  
+		strComputer = "."
+		Set objWMIService = GetObject("winmgmts:\\" & strComputer & "\root\cimv2")
+		Set colItems = objWMIService.ExecQuery("Select * From Win32_DesktopMonitor")
+		For Each objItem in colItems
+			intHorizontal = objItem.ScreenWidth
+			intVertical = objItem.ScreenHeight
+		Next
+		intLeft = (intHorizontal - 800) / 2
+		intTop = (intVertical - 550) / 2
+
+		If IsNull(intHorizontal) Then
+			intLeft = 0
+			intTop = 0
+		End If
+
+		window.moveTo intLeft, intTop
+	  
+		strComputer = "." 
+		Set objWMI = GetObject("winmgmts:\\" & strComputer & "\root\CIMV2") 
+		Set colItems = objWMI.ExecQuery("SELECT * FROM Win32_OperatingSystem",,48) 
+		For Each objItem in colItems 
+			OSVER = objItem.Caption
+		Next
+	End Sub
+</script>
+
 <body>
-	HTA Application
+	<div id="container">
+		
+		<div id="head">
+			<p>head</p>
+		</div>
+		
+		<div id="content">
+			<p>Content</p>
+		</div>
+		
+		<div id="foot">
+			<p>foot</p>
+		</div>
+	</div>
 </body>
 
 </html>
