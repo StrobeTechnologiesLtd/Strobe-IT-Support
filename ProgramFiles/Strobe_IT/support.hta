@@ -29,7 +29,6 @@
 </head>
 
 <script language="VBScript">
-	Dim OSVER
 	
 	Sub Window_Onload
 		window.document.title = MyApp.applicationname & " " & MyApp.version
@@ -52,12 +51,20 @@
 
 		window.moveTo intLeft, intTop
 	  
-		strComputer = "." 
-		Set objWMI = GetObject("winmgmts:\\" & strComputer & "\root\CIMV2") 
-		Set colItems = objWMI.ExecQuery("SELECT * FROM Win32_OperatingSystem",,48) 
-		For Each objItem in colItems 
-			OSVER = objItem.Caption
-		Next
+	End Sub
+	
+	Sub runapp(app)
+		Dim WshShell
+		Set WshShell = CreateObject("WScript.Shell")
+		WSHShell.Run app
+	End Sub
+	
+	Sub information()
+		runapp(".\pcinfo.hta")
+	End Sub
+	
+	Sub Quit()
+		window.close
 	End Sub
 </script>
 
@@ -65,6 +72,13 @@
 	<div id="container">
 		
 		<div id="header">
+			<div id="nav-strip">
+				<ul>
+					<li><a href="http://www.strobe-it.co.uk/">Visit the Strobe IT Website</a></li>
+					<li><a href="#" onclick="VBScript:Quit()">Close</a></li>
+				</ul>
+			</div>
+			
 			<div id="banner-right-image"><img src="images/banner-right.png" alt="Strobe IT specialist IT Support Centre" border="0" height="115px" /></div>
 			<div id="banner-left-image"><img src="images/banner-left.gif" alt="Strobe IT specialist IT Support Centre" border="0" height="115px" /></div>
 		</div>
@@ -84,7 +98,7 @@
 				
 				<td width="195px">
 					<p>
-						<a href="http://helpdesk.strobe-it.co.uk/open.php" style="text-decoration : none;"><img src="images/ticket.png" alt="Create a support ticket on-line" border="0" /></a>
+						<a href="http://helpdesk.strobe-it.co.uk/open.php" style="text-decoration : none;"><img src="images/ticket.png" alt="Create a support ticket online" border="0" /></a>
 					</p>
 				</td>
 				
@@ -102,6 +116,10 @@
 				
 				</tr>
 			</table>
+			
+			<p>&nbsp;</p>
+			
+			<p><a href="#" onClick="VBScript:information()">Useful information for engineers</a></p>
 			
 		</div>
 		

@@ -1,0 +1,209 @@
+<html>
+
+<head>
+	<title>Strobe IT Support - PC Information</title>
+
+	<meta name="description" content="Strobe IT provide IT Consultancy, Support, Maintenance, Networks, Web Hosting &amp; Email Services" />
+	<link href="styles/main.css" rel="stylesheet" type="text/css" />
+
+	<hta:application id="MyApp"
+		applicationname="Strobe IT Support - PC Information"
+		border="thin"
+		borderstyle="normal"
+		caption="yes"
+		contextmenu="no"
+		icon="images\Strobe_IT.ico"
+		innerborder="yes"
+		maximizebutton="no"
+		minimizebutton="no"
+		navigable="no"
+		scroll="yes"
+		scrollflat="no"
+		selection="yes"
+		showintaskbar="yes"
+		singleinstance="no"
+		sysmenu="yes"
+		version="1.0"
+		windowstate="normal"
+	>
+</head>
+
+<script language="VBScript">
+	Dim OSVER
+	
+	Sub Window_Onload
+		window.document.title = MyApp.applicationname & " " & MyApp.version
+
+		window.resizeTo 800,550	  
+		strComputer = "."
+		Set objWMIService = GetObject("winmgmts:\\" & strComputer & "\root\cimv2")
+		Set colItems = objWMIService.ExecQuery("Select * From Win32_DesktopMonitor")
+		For Each objItem in colItems
+			intHorizontal = objItem.ScreenWidth
+			intVertical = objItem.ScreenHeight
+		Next
+		intLeft = ((intHorizontal - 800) / 2) + 20
+		intTop = ((intVertical - 550) / 2) + 20
+
+		If IsNull(intHorizontal) Then
+			intLeft = 0
+			intTop = 0
+		End If
+
+		window.moveTo intLeft, intTop
+	  
+		strComputer = "." 
+		Set objWMI = GetObject("winmgmts:\\" & strComputer & "\root\CIMV2") 
+		Set colItems = objWMI.ExecQuery("SELECT * FROM Win32_OperatingSystem",,48) 
+		For Each objItem in colItems 
+			OSVER = objItem.Caption
+		Next
+	End Sub
+
+	Sub Quit()
+		window.close
+	End Sub
+</script>
+
+<body>
+	<div id="container">
+		
+		<div id="header">
+			<div id="nav-strip">
+				<ul>
+					<li><a href="http://www.strobe-it.co.uk/">Visit the Strobe IT Website</a></li>
+					<li><a href="#" onclick="VBScript:Quit()">Close</a></li>
+				</ul>
+			</div>
+			
+			<div id="banner-right-image"><img src="images/banner-right.png" alt="Strobe IT specialist IT Support Centre" border="0" height="115px" /></div>
+			<div id="banner-left-image"><img src="images/banner-left.gif" alt="Strobe IT specialist IT Support Centre" border="0" height="115px" /></div>
+		</div>
+		
+		<div id="content">
+		
+			<p>&nbsp;</p>
+		
+			<table class="fulltable">
+			<tr class="infotitles">
+				<td>Operating System Details</td>
+				<td>Network Details</td>
+			</tr>
+			<tr>
+				<td class="info">
+					<script language="VBScript">
+					Option Explicit
+					' On Error Resume Next
+
+						Dim OSVER, OSPack, OSVerNo, Regkey, IEVersion, strComputer, colItems, objItem, objWMI, CurUser
+						Dim WSHShell, WshNetwork
+						Set WSHShell = CreateObject("WScript.Shell")
+						Set WshNetwork = CreateObject("WScript.Network")
+
+						RegKey = "HKEY_LOCAL_MACHINE\Software\Microsoft\Internet Explorer\"
+						IEVersion = WSHShell.RegRead(RegKey & "Version")
+						CurUser = WshNetwork.UserName
+
+						strComputer = "."
+						Set objWMI = GetObject("winmgmts:\\" & strComputer & "\root\CIMV2")
+						Set colItems = objWMI.ExecQuery("SELECT * FROM Win32_OperatingSystem",,48)
+						For Each objItem in colItems
+							OSVER = objItem.Caption
+							OSPack = objItem.ServicePackMajorVersion
+							OSVerNo = objItem.Version
+						Next
+
+						Document.write "<table class='info'>"
+							Document.write "<tr><td class='item'>Operating System:</td><td>&nbsp;</td><td class='detail'>" & OSVER & "</td></tr>"
+							Document.write "<tr><td class='item'>Service Pack:</td><td>&nbsp;</td><td class='detail'>" & OSPack & "</td></tr>"
+							Document.write "<tr><td class='item'>Version Number:</td><td>&nbsp;</td><td class='detail'>" & OSVerNo & "</td></tr>"
+							Document.Write "<tr><td class='item'>Current User:</td><td>&nbsp;</td><td class='detail'>" & CurUser & "</td></tr>"
+						Document.write "</table>"
+					</script>
+				</td>
+				<td class="info">
+					<script>
+						strComputer = "."
+						Set objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2")
+						Set colAdapters = objWMIService.ExecQuery ("SELECT * FROM Win32_NetworkAdapterConfiguration WHERE IPEnabled = True")
+						n = 1
+	
+						For Each objAdapter in colAdapters
+							Document.write "<b>Network Adapter " & n & "</b><br />"
+							Document.write "<table class='info'>"
+								Document.write "<tr><td class='item'>Description:</td><td>&nbsp;</td><td class='detail'>" & objAdapter.Description & "</td></tr>"
+								Document.write "<tr><td class='item'>Physical (MAC) address:</td><td>&nbsp;</td><td class='detail'>" & objAdapter.MACAddress & "</td></tr>"
+								Document.write "<tr><td class='item'>Host name:</td><td>&nbsp;</td><td class='detail'>" & objAdapter.DNSHostName & "</td></tr>"
+
+								If Not IsNull(objAdapter.IPAddress) Then
+									For i = 0 To UBound(objAdapter.IPAddress)
+										Document.write "<tr><td class='item'>IP address " & i & ":</td><td>&nbsp;</td><td class='detail'>" & objAdapter.IPAddress(i) & "</td></tr>"
+									Next
+								End If
+
+								If Not IsNull(objAdapter.IPSubnet) Then
+									For i = 0 To UBound(objAdapter.IPSubnet)
+										Document.write "<tr><td class='item'>Subnet " & i & ":</td><td>&nbsp;</td><td class='detail'>" & objAdapter.IPSubnet(i) & "</td></tr>"
+									Next
+								End If
+
+								If Not IsNull(objAdapter.DefaultIPGateway) Then
+									For i = 0 To UBound(objAdapter.DefaultIPGateway)
+										Document.write "<tr><td class='item'>Default gateway " & i & ":</td><td>&nbsp;</td><td class='detail'>" & objAdapter.DefaultIPGateway(i) & "</td></tr>"
+									Next
+								End If
+
+								If Not IsNull(objAdapter.DNSServerSearchOrder) Then
+									For i = 0 To UBound(objAdapter.DNSServerSearchOrder)
+										Document.write "<tr><td class='item'>DNS Server " & i & ":</td><td>&nbsp;</td><td class='detail'>" & objAdapter.DNSServerSearchOrder(i) & "</td></tr>"
+									Next
+								End If
+
+								Document.write "<tr><td class='item'>DNS domain:</td><td>&nbsp;</td><td class='detail'>" & objAdapter.DNSDomain & "</td></tr>"
+
+								If Not IsNull(objAdapter.DNSDomainSuffixSearchOrder) Then
+									For i = 0 To UBound(objAdapter.DNSDomainSuffixSearchOrder)
+										Document.write "<tr><td class='item'>DNS suffix search list" & i & ":</td><td>&nbsp;</td><td class='detail'>" & objAdapter.DNSDomainSuffixSearchOrder(i) & "</td></tr>"
+									Next
+								End If
+
+								Document.write "<tr><td class='item'>DHCP enabled:</td><td>&nbsp;</td><td class='detail'>" & objAdapter.DHCPEnabled & "</td></tr>"
+								Document.write "<tr><td class='item'>DHCP server:</td><td>&nbsp;</td><td class='detail'>" & objAdapter.DHCPServer & "</td></tr>"
+								Document.write "<tr><td class='item'>Primary WINS server:</td><td>&nbsp;</td><td class='detail'>" & objAdapter.WINSPrimaryServer & "</td></tr>"
+								Document.write "<tr><td class='item'>Secondary WINS server:</td><td>&nbsp;</td><td class='detail'>" & objAdapter.WINSSecondaryServer & "</td></tr>"
+							Document.write "</table><br /><br />"
+							n = n + 1
+						Next
+						If n=1 Then
+							Document.write "<table class='info'>"
+								Document.write "<tr><td class='error'>Error No Network Detected</td></tr>"
+								Document.write "<tr><td>&nbsp;</td></tr>"
+								Document.write "<tr><td>&nbsp;</td></tr>"
+								Document.write "<tr><td>&nbsp;</td></tr>"
+								Document.write "<tr><td>&nbsp;</td></tr>"
+								Document.write "<tr><td>&nbsp;</td></tr>"
+								Document.write "<tr><td>&nbsp;</td></tr>"
+								Document.write "<tr><td>&nbsp;</td></tr>"
+								Document.write "<tr><td>&nbsp;</td></tr>"
+								Document.write "<tr><td>&nbsp;</td></tr>"
+								Document.write "<tr><td>&nbsp;</td></tr>"
+								Document.write "<tr><td>&nbsp;</td></tr>"
+								Document.write "<tr><td>&nbsp;</td></tr>"
+								Document.write "<tr><td>&nbsp;</td></tr>"
+							Document.write "</table>"
+						End If
+					</script>
+				</td>
+			</tr>
+		</table>
+			
+		</div>
+		
+		<div id="footer">
+			<p>Strobe IT is the trading name of Strobe Technologies Ltd<br />
+			Company registration No. 8031223. Registered in England.</p>
+		</div>
+	</div>
+</body>
+
+</html>

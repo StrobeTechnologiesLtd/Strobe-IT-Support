@@ -7,6 +7,35 @@
 .clearing-only { clear: both; } /* DIV class for clearing left an right */
 .clearing { clear: both; height: 1px; } /* DIV class for clearing left an right */
 .clearing-big { clear: both; height: 5px; } /* DIV class for clearing left an right */
+td.info {
+	font-size: 12px;
+	vertical-align: top;
+}
+.fulltable {
+	width: 740px;
+}
+.infotitles {
+	font-weight: bold;
+	font-size: 20px;
+}
+.subheading {
+	color: #666600;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.item {
+	color: #666600;
+	font-weight: bold;
+}
+
+.detail {
+	color: #666666;
+}
+
+.error {
+	color: #FF0000;
+}
 
 /* Structure */
 /* ======================================= */
@@ -24,8 +53,9 @@
 /*#content {
 } */
 
-/* #footer {
-} */
+#footer {
+	font-size: x-small;
+}
 
 #banner-left-image {
 	height: 115px;
@@ -42,4 +72,35 @@
 	margin-right: 0px;
 	margin-bottom: 0px;
 	margin-left: 225px;
+}
+
+/* Nav Menu */
+#nav-strip {
+	height: 32px;
+}
+
+#nav-strip ul {
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+}
+
+
+#nav-strip ul li {
+	float: left;
+	list-style-type: none;
+	margin-right: 15px;
+}
+
+
+#nav-strip ul li a {
+	text-decoration: none;
+	line-height: 2.5em;
+	color: #666666;
+	font-size: 0.975em;
+	font-weight: normal;
+}
+
+#nav-strip ul li a:hover {
+	color: #FF6600;
 }
