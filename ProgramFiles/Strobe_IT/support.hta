@@ -33,7 +33,7 @@
 	Sub Window_Onload
 		window.document.title = MyApp.applicationname & " " & MyApp.version
 
-		window.resizeTo 800,550	  
+		window.resizeTo 800,600	  
 		strComputer = "."
 		Set objWMIService = GetObject("winmgmts:\\" & strComputer & "\root\cimv2")
 		Set colItems = objWMIService.ExecQuery("Select * From Win32_DesktopMonitor")
@@ -42,7 +42,7 @@
 			intVertical = objItem.ScreenHeight
 		Next
 		intLeft = (intHorizontal - 800) / 2
-		intTop = (intVertical - 550) / 2
+		intTop = (intVertical - 600) / 2
 
 		If IsNull(intHorizontal) Then
 			intLeft = 0
@@ -119,13 +119,18 @@
 			
 			<p>&nbsp;</p>
 			
-			<p><a href="#" onClick="VBScript:information()">Useful information for engineers</a></p>
+			<p><a href="#" onClick="VBScript:information()" style="text-decoration : none;"><img src="images/information.png" alt="Useful information for support engineers" border="0" /></a></p>
 			
 		</div>
 		
 		<div id="footer">
-			<p>Strobe IT is the trading name of Strobe Technologies Ltd<br />
-			Company registration No. 8031223. Registered in England.</p>
+			<div class="float-right">
+				<img src="images/Strobe-Logo_white.gif" alt="Strobe IT Logo" width="150px" />
+			</div>
+			<div>
+				<p>Strobe IT is the trading name of Strobe Technologies Ltd<br />
+				Company registration No. 8031223. Registered in England.</p>
+			</div>
 		</div>
 	</div>
 </body>
