@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Strobe IT Support"
-#define MyAppVersion "2.0"
+#define MyAppVersion "2.1"
 #define MyAppPublisher "Strobe Technologies Ltd"
 #define MyAppURL "http://www.strobe-it.co.uk/"
 #define MyAppExeName "support.hta"
