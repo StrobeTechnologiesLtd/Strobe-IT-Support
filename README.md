@@ -10,3 +10,7 @@ from our website.
 
 The idea is to provide a simple interface to be able to contact us and get useful information like
 PC name or OS version with the customer knowing anything about IT meaning we can help them better.
+
+
+10/08/2018
+This project is dead
